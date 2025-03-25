@@ -1,0 +1,14 @@
+{% extends 'supplysage/base.html' %}
+
+{% block title %}
+    Confirm Delete
+{% endblock title %}
+
+{% block content %}
+<h2>Are you sure you want to delete: {{ item.name }}?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, Delete</button>
+</form>
+<a href="{% url 'item_list' %}">Cancel</a>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'supplysage/base.html' %}
+
+{% block title %}
+    Item List
+{% endblock title %}
+
+{% block content %}
+<h2>All Items</h2>
+<ul>
+    {% for item in items %}
+        <li>
+            {{ item.name }} (Quantity: {{ item.quantity }}, Price: {{ item.price }})
+            | <a href="{% url 'item_update' item.pk %}">Edit</a>
+            | <a href="{% url 'item_delete' item.pk %}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
