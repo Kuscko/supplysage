@@ -1,0 +1,15 @@
+{% extends 'supplysage/base.html' %}
+
+{% block title %}
+    Item Form
+{% endblock title %}
+
+{% block content %}
+<h2>Item Form</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'item_list' %}">Back to List</a>
+{% endblock content %}
