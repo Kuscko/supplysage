@@ -27,17 +27,38 @@
 </form>
 
 <!-- Item List -->
-<ul>
-    {% for item in items %}
-        <li>
-            {{ item.name }} (Quantity: {{ item.quantity }}, Price: ${{ item.price }}, Category: {{ item.get_category_display }})
-            | <a href="{% url 'item_update' item.pk %}">Edit</a>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Actions</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        <tr class="{% if item.is_low_stock %}table-danger fw-bold{% endif %}">
+          <td>{{ item.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ item.price }}</td>
+          <td>{{ item.get_category_display }}</td>
+          <td>
+            <a href="{% url 'item_update' item.pk %}">Edit</a>
             {% if user.is_staff %}
-                | <a href="{% url 'item_delete' item.pk %}">Delete</a>
+              | <a href="{% url 'item_delete' item.pk %}">Delete</a>
             {% endif %}
-        </li>
-    {% empty %}
-        <li>No items match your search/filter.</li>
-    {% endfor %}
-</ul>
+          </td>
+          <td>
+            {% if item.is_low_stock %}
+              <span class="badge bg-danger">Low Stock</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
 {% endblock content %}

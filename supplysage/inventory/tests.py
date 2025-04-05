@@ -1,7 +1,7 @@
 # supplysage/inventory/tests.py
 from django.test import TestCase
 from django.urls import reverse
-from .models import Item
+from .models import Item, InventorySettings
 from django.contrib.auth.models import User
 
 # Create your tests here.
@@ -22,3 +22,19 @@ class InventorySearchTests(TestCase):
         response = self.client.get(reverse('item_list'), {'category': 'FURNITURE'})
         self.assertContains(response, 'Desk')
         self.assertNotContains(response, 'Laptop')
+
+class LowStockTests(TestCase):
+    def setUp(self):
+        InventorySettings.objects.create(low_stock_threshold=10)
+
+    def test_item_low_stock_flag(self):
+        item = Item.objects.create(name='Widget', quantity=5, price=20.00, category='OTHER')
+        self.assertTrue(item.is_low_stock())
+
+        item.quantity = 15
+        item.save()
+        self.assertFalse(item.is_low_stock())
+        
+    def test_item_quantity_equal_to_threshold(self):
+        item = Item.objects.create(name='Widget', quantity=10, price=20.00, category='OTHER')
+        self.assertFalse(item.is_low_stock())
