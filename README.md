@@ -64,6 +64,63 @@ SupplySage is a Django-based inventory management system designed to help small 
 
 ---
 
+## 🔐 Admin Access
+
+- Visit `http://localhost:8000/admin`
+- Use your superuser credentials to log in
+- You can configure inventory settings, users, and permissions here
+
+---
+
+## 📝 Usage Notes
+
+- The app's main entry is at `/items/`
+- Admins and staff can be created through the Django admin interface
+- To receive low-stock email alerts:
+  - Set email backend in `settings.py`
+  - Enable notifications in the **Inventory Settings** panel
+
+---
+
+## 📁 Project Structure
+
+```
+supplysage/
+├── inventory/         # Core app: models, views, forms, templates
+├── templates/         # Shared HTML templates
+├── static/            # Static files (CSS, JS)
+├── manage.py
+└── requirements.txt
+```
+
+---
+
+## 🧪 Running Tests
+
+```bash
+python manage.py test inventory
+```
+
+Tests cover:
+- Inventory filtering
+- Low stock flags
+- Email notifications
+- Value calculations
+
+---
+
+## 📨 Email Setup (Dev Mode)
+
+To see emails in the console, add to `settings.py`:
+
+```python
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'admin@supplysage.com'
+ADMINS = [('Admin', 'admin@example.com')]
+```
+
+---
+
 ## 🐳 Docker Deployment (Production)
 
 This project supports containerized deployment using Docker and PostgreSQL.
@@ -193,63 +250,6 @@ List tables:
 ---
 
 Happy Deploying! 🐳🔥
-
----
-
-## 🔐 Admin Access
-
-- Visit `http://localhost:8000/admin`
-- Use your superuser credentials to log in
-- You can configure inventory settings, users, and permissions here
-
----
-
-## 📝 Usage Notes
-
-- The app's main entry is at `/items/`
-- Admins and staff can be created through the Django admin interface
-- To receive low-stock email alerts:
-  - Set email backend in `settings.py`
-  - Enable notifications in the **Inventory Settings** panel
-
----
-
-## 📁 Project Structure
-
-```
-supplysage/
-├── inventory/         # Core app: models, views, forms, templates
-├── templates/         # Shared HTML templates
-├── static/            # Static files (CSS, JS)
-├── manage.py
-└── requirements.txt
-```
-
----
-
-## 🧪 Running Tests
-
-```bash
-python manage.py test inventory
-```
-
-Tests cover:
-- Inventory filtering
-- Low stock flags
-- Email notifications
-- Value calculations
-
----
-
-## 📨 Email Setup (Dev Mode)
-
-To see emails in the console, add to `settings.py`:
-
-```python
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'admin@supplysage.com'
-ADMINS = [('Admin', 'admin@example.com')]
-```
 
 ---
 
