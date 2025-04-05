@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Low Stock Report
+{% endblock title %}
+
+{% block content %}
+<h2>Low Stock Report</h2>
+<p>Items with quantity below threshold ({{ threshold }}):</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in low_stock_items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>${{ item.price }}</td>
+            <td>{{ item.get_category_display }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No low stock items!</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'export_low_stock_csv' %}" class="btn btn-secondary">Export to CSV</a>
+<a href="{% url 'export_low_stock_pdf' %}" class="btn btn-secondary">Export to PDF</a>
+{% endblock %}

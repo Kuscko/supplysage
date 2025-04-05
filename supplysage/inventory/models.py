@@ -31,6 +31,9 @@ class Item(models.Model):
     def get_total_value(self):
         return Decimal(self.quantity) * self.price
     
+    def get_category_display(self):
+        return dict(self.CATEGORY_CHOICES).get(self.category, self.category)
+
 class InventorySettings(models.Model):
     low_stock_threshold = models.PositiveIntegerField(default=5)
 
