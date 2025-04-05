@@ -33,11 +33,11 @@ jobs:
           echo "DEBUG=${{ secrets.DEBUG }}" >> .env
           
       - name: Run Django checks
+        working-directory: supplysage
         run: |
-          cd supplysage
-          python supplysage/manage.py check
+          python manage.py check
           
       - name: Run Tests
         working-directory: supplysage
         run: |
-          python supplysage/manage.py test
+          python manage.py test
