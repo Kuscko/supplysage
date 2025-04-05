@@ -5,7 +5,8 @@
 
 # Project-specific files
 # Ignore environment files
-.env*
+.env
+.env.development
 # Ignore database files
 *.sqlite3
 
