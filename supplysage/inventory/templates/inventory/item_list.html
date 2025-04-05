@@ -7,6 +7,9 @@
 {% block content %}
 <h2>All Items</h2>
 
+<!-- Create New Item Button -->
+<a href="{% url 'item_create' %}" class="btn btn-primary mb-3">Create New Item</a>
+
 <!-- Search & Filter Form -->
 <form method="get" class="mb-3" style="margin-bottom: 1rem;">
     <input type="text" name="q" placeholder="Search by name..." value="{{ query|default:'' }}">

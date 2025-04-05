@@ -5,6 +5,7 @@
 {% endblock title %}
 
 {% block content %}
+<!-- Confirm Delete Item Form -->
 <h2>Are you sure you want to delete: {{ item.name }}?</h2>
 <form method="post">
     {% csrf_token %}
