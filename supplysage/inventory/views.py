@@ -1,6 +1,7 @@
 # supplysage/inventory/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db.models import Sum, F, ExpressionWrapper, DecimalField
 from .models import Item
 from .forms import ItemForm
 
@@ -18,12 +19,17 @@ def item_list_view(request):
     if category_filter and category_filter != 'ALL':
         items = items.filter(category=category_filter)
 
+    # Total inventory value (qty × price per item)
+    item_value = ExpressionWrapper(F('quantity') * F('price'), output_field=DecimalField())
+    total_value = items.annotate(total=item_value).aggregate(sum=Sum('total'))['sum'] or 0
+
     categories = Item.CATEGORY_CHOICES
     return render(request, 'inventory/item_list.html', {
         'items': items,
         'categories': categories,
         'selected_category': category_filter,
-        'query': query
+        'query': query,
+        'total_value': total_value,
     })
 
 
