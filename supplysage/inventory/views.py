@@ -7,8 +7,25 @@ from .forms import ItemForm
 
 @login_required
 def item_list_view(request):
+    query = request.GET.get('q')
+    category_filter = request.GET.get('category')
+
     items = Item.objects.all()
-    return render(request, 'inventory/item_list.html', {'items': items})
+
+    if query:
+        items = items.filter(name__icontains=query)
+
+    if category_filter and category_filter != 'ALL':
+        items = items.filter(category=category_filter)
+
+    categories = Item.CATEGORY_CHOICES
+    return render(request, 'inventory/item_list.html', {
+        'items': items,
+        'categories': categories,
+        'selected_category': category_filter,
+        'query': query
+    })
+
 
 @login_required
 def item_create_view(request):
