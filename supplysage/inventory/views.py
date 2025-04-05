@@ -1,10 +1,10 @@
 # supplysage/inventory/views.py
-# Create your views here.
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Item
 from .forms import ItemForm
 
+# Create your views here.
 @login_required
 def item_list_view(request):
     query = request.GET.get('q')
