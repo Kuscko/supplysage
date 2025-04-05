@@ -1,6 +1,5 @@
 # supplysage/inventory/models.py
 from django.db import models
-from decimal import Decimal
 from inventory.utils.emails import send_low_stock_email
 
 # Create your models here.
@@ -30,7 +29,7 @@ class Item(models.Model):
         return self.quantity < Item.get_threshold()
     
     def get_total_value(self):
-        return Decimal(self.quantity) * self.price
+        return self.quantity * self.price
     
     def get_category_display(self):
         return dict(self.CATEGORY_CHOICES).get(self.category, self.category)
@@ -42,10 +41,10 @@ class Item(models.Model):
             threshold = InventorySettings.objects.first().low_stock_threshold
 
             dropped_below = old.quantity >= threshold and self.quantity < threshold
-
             notifications_enabled = InventorySettings.objects.first().low_stock_notifications_enabled
+
             if dropped_below and notifications_enabled:
-                send_low_stock_email(self, threshold)  # Pass threshold as a parameter
+                send_low_stock_email(self)
 
         super().save(*args, **kwargs)
 
