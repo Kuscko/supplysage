@@ -6,7 +6,6 @@ from django.db import models
 
 def send_low_stock_email(item):
     # Lazy load the settings to avoid circular imports
-    print("Sending emails")
     from inventory.models import InventorySettings
     User = get_user_model()
 

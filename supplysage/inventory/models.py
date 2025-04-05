@@ -36,17 +36,12 @@ class Item(models.Model):
     
     def save(self, *args, **kwargs):
     # Check if this is an update
-        print("PK:", self.pk)
         if self.pk:
             old = Item.objects.get(pk=self.pk)
             threshold = InventorySettings.objects.first().low_stock_threshold
 
-            print(f"Old: {old.quantity}, New: {self.quantity}, Threshold: {threshold}")
-
             dropped_below = old.quantity >= threshold and self.quantity < threshold
             notifications_enabled = InventorySettings.objects.first().low_stock_notifications_enabled
-
-            print("Notifications Enabled:", notifications_enabled)
 
             if dropped_below and notifications_enabled:
                 send_low_stock_email(self)
