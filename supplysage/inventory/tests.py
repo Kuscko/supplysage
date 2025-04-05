@@ -34,3 +34,7 @@ class LowStockTests(TestCase):
         item.quantity = 15
         item.save()
         self.assertFalse(item.is_low_stock())
+        
+    def test_item_quantity_equal_to_threshold(self):
+        item = Item.objects.create(name='Widget', quantity=10, price=20.00, category='OTHER')
+        self.assertFalse(item.is_low_stock())
