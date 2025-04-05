@@ -1,3 +1,4 @@
+# supplysage/inventory/urls.py
 from django.urls import path
 from .views import (
     item_list_view,

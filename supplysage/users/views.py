@@ -1,4 +1,4 @@
-# users/views.py
+# supplysage/users/views.py
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
 
