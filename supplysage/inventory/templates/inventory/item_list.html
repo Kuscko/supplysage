@@ -6,15 +6,35 @@
 
 {% block content %}
 <h2>All Items</h2>
+
+<!-- Search & Filter Form -->
+<form method="get" class="mb-3" style="margin-bottom: 1rem;">
+    <input type="text" name="q" placeholder="Search by name..." value="{{ query|default:'' }}">
+    
+    <select name="category">
+        <option value="ALL">All Categories</option>
+        {% for value, label in categories %}
+            <option value="{{ value }}" {% if value == selected_category %}selected{% endif %}>
+                {{ label }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<!-- Item List -->
 <ul>
     {% for item in items %}
         <li>
-            {{ item.name }} (Quantity: {{ item.quantity }}, Price: {{ item.price }})
+            {{ item.name }} (Quantity: {{ item.quantity }}, Price: ${{ item.price }}, Category: {{ item.get_category_display }})
             | <a href="{% url 'item_update' item.pk %}">Edit</a>
             {% if user.is_staff %}
                 | <a href="{% url 'item_delete' item.pk %}">Delete</a>
             {% endif %}
         </li>
+    {% empty %}
+        <li>No items match your search/filter.</li>
     {% endfor %}
 </ul>
 {% endblock content %}
