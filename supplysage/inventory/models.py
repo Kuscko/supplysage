@@ -21,7 +21,7 @@ class Item(models.Model):
     
     @staticmethod
     def get_threshold():
-        settings = InventorySettings.objects.first()
+        settings = InventorySettings.objects.get_or_create()[0]
         return settings.low_stock_threshold if settings else 5  # default fallback
     
     def is_low_stock(self):
