@@ -5,7 +5,8 @@
 {% endblock title %}
 
 {% block content %}
-<h2>All Items</h2>
+<h2>All Items</h2> 
+<h3>Total Inventory Value: ${{ total_value|floatformat:2 }}</h3>
 
 <!-- Create New Item Button -->
 <a href="{% url 'item_create' %}" class="btn btn-primary mb-3">Create New Item</a>
