@@ -16,6 +16,7 @@ jobs:
       uses: docker/setup-buildx-action@v3
 
     - name: Create .env file
+      working-directory: supplysage
       run: |
           echo "DATABASE_ENGINE=${{ secrets.DATABASE_ENGINE }}" >> .env
           echo "DATABASE_NAME=${{ secrets.DATABASE_NAME }}" >> .env
@@ -34,7 +35,9 @@ jobs:
           echo "DEBUG=${{ secrets.DEBUG }}" >> .env
 
     - name: Build Docker image
-      run: docker-compose build
+      working-directory: supplysage
+      run: docker compose build
 
     - name: Run Django tests
-      run: docker-compose run --rm web python manage.py test
+      working-directory: supplysage
+      run: docker compose run --rm web python manage.py test
