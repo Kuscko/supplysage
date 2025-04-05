@@ -5,9 +5,10 @@ from .models import Item
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['name', 'quantity', 'price']
+        fields = ['name', 'quantity', 'price', 'category']
         labels = {
             'name': 'Item Name',
             'quantity': 'Quantity',
-            'price': 'Price'
+            'price': 'Price',
+            'category': 'Category'
         }
