@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'supplysage.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-if DEBUG:
+if DEBUG is True:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -146,7 +146,7 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'    # where to go after logout
 LOGIN_URL = '/accounts/login/'              # Where @login_required sends users
 
 # Email settings
-if DEBUG:
+if DEBUG is True:
     EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
     EMAIL_HOST = os.getenv('EMAIL_HOST')
     EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
