@@ -32,7 +32,8 @@ def item_update_view(request, pk):
         form = ItemForm(instance=item)
     return render(request, 'inventory/item_form.html', {'form': form, 'item': item})
 
-@login_required and user_passes_test(lambda u: u.is_superuser)
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def item_delete_view(request, pk):
     item = get_object_or_404(Item, pk=pk)
     if request.method == 'POST':
