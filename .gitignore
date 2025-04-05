@@ -5,7 +5,7 @@
 
 # Project-specific files
 # Ignore environment files
-env*.py 
+.env
 # Ignore database files
 *.sqlite3
 

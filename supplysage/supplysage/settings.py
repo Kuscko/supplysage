@@ -11,21 +11,23 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import supplysage.environment as env
+from dotenv import load_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.SECRET_KEY
+SECRET_KEY = os.getenv('SECRET_KEY', default='django-insecure-!@#4$%^&*()_+')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.DEBUG
+DEBUG = os.getenv('DEBUG', default='True')
 
-ALLOWED_HOSTS = env.ALLOWED_HOSTS
+ALLOWED_HOSTS = ["*"]  # Add your production domain or IP address here
 
 # Application definition
 
@@ -84,12 +86,12 @@ DATABASES = {
     },
     # Production database
     'production': {
-        'ENGINE': env.DATABASE_ENGINE,
-        'NAME': env.DATABASE_NAME,
-        'USER': env.DATABASE_USER,
-        'PASSWORD': env.DATABASE_PASSWORD,
-        'HOST': env.DATABASE_HOST,
-        'PORT': env.DATABASE_PORT,
+        'ENGINE': os.getenv('DATABASE_ENGINE', default='django.db.backends.postgresql'),
+        'NAME': os.getenv('DATABASE_NAME', default='supplysage'),
+        'USER': os.getenv('DATABASE_USER', default='postgres'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', default='password'),
+        'HOST': os.getenv('DATABASE_HOST', default='localhost'),
+        'PORT': os.getenv('DATABASE_PORT', default='5432'),
     }
 }
 
