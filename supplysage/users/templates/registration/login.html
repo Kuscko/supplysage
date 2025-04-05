@@ -1,0 +1,53 @@
+<!-- users/templates/registration/login.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <main class="w-100 m-auto text-center" style="max-width: 400px;">
+    <div class="card shadow p-4">
+      <form method="post">
+        {% csrf_token %}
+        
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+        <!-- Username field -->
+        <div class="form-floating mb-2">
+          <input type="text" name="{{ form.username.name }}" class="form-control" id="floatingInput" placeholder="Username" required autofocus>
+          <label for="floatingInput">Username</label>
+        </div>
+
+        <!-- Password field -->
+        <div class="form-floating mb-2">
+          <input type="password" name="{{ form.password.name }}" class="form-control" id="floatingPassword" placeholder="Password" required>
+          <label for="floatingPassword">Password</label>
+        </div>
+
+        <!-- Optional: Error display -->
+        {% if form.errors %}
+          <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+
+        <div class="mb-2">
+          <a href="{% url 'password_reset' %}">Forgot password?</a>
+        </div>
+
+        <div class="mb-2">
+          <a href="{% url 'signup' %}">Don't have an account? Sign up</a>
+        </div>
+        
+        <p class="mt-2 mb-3 text-muted">© 2025 SupplySage</p>
+      </form>
+    </div>
+  </main>
+</div>
+{% endblock %}
