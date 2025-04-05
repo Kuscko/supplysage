@@ -1,5 +1,6 @@
 # supplysage/inventory/models.py
 from django.db import models
+from decimal import Decimal
 
 # Create your models here.
 class Item(models.Model):
