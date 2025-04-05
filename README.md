@@ -138,11 +138,11 @@ Made with love by **Patrick Kelly**
 
 ---
 
-## 📄 Proprietary License
+## 📄 License
 
-Copyright © 2025 Patrick Kelly
+This project is **proprietary**. All rights reserved.
 
-This software is proprietary and confidential. You may not use, copy, distribute, or modify any part of this code without explicit written permission from the author.
+You may not use, copy, distribute, or modify any part of this code without explicit written permission from the author.
 
-All rights reserved.
+Contact: [Email](mailto:contact@kuscko.com) or [GitHub](https://github.com/Kuscko)
 
