@@ -26,7 +26,9 @@ class Item(models.Model):
     
     def is_low_stock(self):
         return self.quantity < Item.get_threshold()
-
+    
+    def get_total_value(self):
+        return Decimal(self.quantity) * self.price
     
 class InventorySettings(models.Model):
     low_stock_threshold = models.PositiveIntegerField(default=5)

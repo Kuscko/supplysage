@@ -38,3 +38,8 @@ class LowStockTests(TestCase):
     def test_item_quantity_equal_to_threshold(self):
         item = Item.objects.create(name='Widget', quantity=10, price=20.00, category='OTHER')
         self.assertFalse(item.is_low_stock())
+
+class InventoryValueTests(TestCase):
+    def test_total_value_calculation(self):
+        item = Item.objects.create(name='Chair', quantity=3, price=49.99, category='FURNITURE')
+        self.assertEqual(item.get_total_value(), 149.97)
