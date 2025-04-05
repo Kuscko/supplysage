@@ -6,11 +6,20 @@
 
 {% block content %}
 <!-- Create New Item Form -->
-<h2>Item Form</h2>
-<form method="post">
+<h2>{{ item.name|default:"Add New Item" }}</h2>
+<form method="post" class="needs-validation" novalidate style="max-width: 500px;">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
+    {% for field in form %}
+        <div class="mb-4">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="text-danger small">{{ field.errors|striptags }}</div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="reset" class="btn btn-secondary">Reset</button>
+    <button type="button" class="btn btn-danger" onclick="window.history.back();">Cancel</button>
 </form>
-<a href="{% url 'item_list' %}">Back to List</a>
 {% endblock content %}
