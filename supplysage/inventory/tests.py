@@ -51,20 +51,21 @@ class LowStockEmailTests(TestCase):
         InventorySettings.objects.create(low_stock_threshold=10, low_stock_notifications_enabled=True)
         self.item = Item.objects.create(name='Widget', quantity=15, price=Decimal('5.00'), category='OTHER')
 
-    @patch('inventory.utils.emails.send_low_stock_email')
+    @patch('inventory.models.send_low_stock_email')
     def test_email_sent_when_dropping_below_threshold(self, mock_send_low_stock_email):
         self.item.quantity = 5
         self.item.save()
         self.assertTrue(mock_send_low_stock_email.called)
-        self.assertIn('Low Stock Alert', mock_send_low_stock_email.call_args[0][0])  # subject check
+        called_item = mock_send_low_stock_email.call_args[0][0]
+        self.assertEqual(called_item.name, 'Widget')
 
-    @patch('inventory.utils.emails.send_low_stock_email')
+    @patch('inventory.models.send_low_stock_email')
     def test_no_email_if_not_below_threshold(self, mock_send_low_stock_email):
         self.item.quantity = 11
         self.item.save()
         self.assertFalse(mock_send_low_stock_email.called)
 
-    @patch('inventory.utils.emails.send_low_stock_email')
+    @patch('inventory.models.send_low_stock_email')
     def test_no_email_if_notifications_disabled(self, mock_send_low_stock_email):
         settings = InventorySettings.objects.first()
         settings.low_stock_notifications_enabled = False
