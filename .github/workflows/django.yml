@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: supplysage
+        working-directory: SupplySage
 
     steps:
       - name: Checkout code
