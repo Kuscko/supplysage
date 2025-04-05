@@ -1,11 +1,11 @@
 # supplysage/urls.py
 from django.contrib import admin
 from django.urls import include, path
-from .views import home_view
+from django.views.generic import RedirectView
 
 urlpatterns = [
     # Default Pages
-    path('', home_view, name='home'),
+    path('', RedirectView.as_view(url='/items/', permanent=False)),
     path('admin/', admin.site.urls),
     # Inventory Pages
     path('items/', include('inventory.urls')),
