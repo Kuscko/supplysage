@@ -18,6 +18,14 @@ class Item(models.Model):
 
     def __str__(self):
         return f'{self.name} - (Qty: {self.quantity})'
+    
+    @staticmethod
+    def get_threshold():
+        settings = InventorySettings.objects.first()
+        return settings.low_stock_threshold if settings else 5  # default fallback
+    
+    def is_low_stock(self):
+        return self.quantity < Item.get_threshold()
 
     
 class InventorySettings(models.Model):
