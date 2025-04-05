@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Sum, F, ExpressionWrapper, DecimalField
 from .models import Item
 from .forms import ItemForm
+import csv
+from django.http import HttpResponse
 
 # Create your views here.
 @login_required
@@ -64,3 +66,24 @@ def item_delete_view(request, pk):
         item.delete()
         return redirect('item_list')
     return render(request, 'inventory/item_confirm_delete.html', {'item': item})
+
+@login_required
+def export_inventory_csv(request):
+    items = Item.objects.all()
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="inventory.csv"'
+    writer = csv.writer(response)
+
+    writer.writerow(['Name', 'Quantity', 'Price', 'Total Value'])
+    total = 0
+
+    for item in items:
+        total_value = item.get_total_value()
+        total += total_value
+        writer.writerow([item.name, item.quantity, item.price, f"{total_value:.2f}"])
+
+    writer.writerow([])
+    writer.writerow(['', '', 'Total Inventory Value', f"{total:.2f}"])
+
+    return response
