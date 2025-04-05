@@ -35,7 +35,9 @@ jobs:
           echo "DEBUG=${{ secrets.DEBUG }}" >> .env
 
     - name: Build Docker image
+      working-directory: supplysage
       run: docker compose build
 
     - name: Run Django tests
+      working-directory: supplysage
       run: docker compose run --rm web python manage.py test
