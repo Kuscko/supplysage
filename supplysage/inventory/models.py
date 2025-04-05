@@ -51,6 +51,7 @@ class Item(models.Model):
 
 class InventorySettings(models.Model):
     low_stock_threshold = models.PositiveIntegerField(default=5)
+    low_stock_notifications_enabled = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Low Stock Threshold: {self.low_stock_threshold}"
