@@ -32,7 +32,7 @@ SupplySage is a Django-based inventory management system designed to help small 
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/your-username/supplysage.git
+   git clone https://github.com/Kuscko/SupplySage.git
    cd supplysage
    ```
 
